@@ -6,7 +6,7 @@ Plan
    1. Check LoginPage
    2. Check MainPage
    3. Check CSS 
-   4. Check sourse project
+   4. Check source project
 2. Create scripts 
    1. Create search script
    2. Create sort script 
@@ -19,5 +19,9 @@ Plan
    3. Create deleteInterest endpoint
    4. Create editInterest endpoint
    5. Create deletePerson endpoint
+   6. Create newUser endpoint
+   7. Create listUser endpoint
+   8. Create searchUser endpoint
+   9. Create searchInterest endpoint
 5. Unite all matireal
 6. Finish project
