@@ -13,7 +13,7 @@ Plan
    3. Other 
 3. Check old DB
    1. Conect DB
-4.Create API endpoints
+4. Create API endpoints
    1. Create readUser endpoint
    2. Create addInterest endpoint
    3. Create deleteInterest endpoint
