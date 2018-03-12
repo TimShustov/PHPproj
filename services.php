@@ -4,27 +4,24 @@ $db = new SQlite3('user-store.db');
 
 $db->query("PRAGMA synchronous = OFF");
 
-$q = $_GET["q"];
-$interst_id = $_GET["id"];
-$user_id = $_GET["id"];
-$description = $_GET["desc"];
-$firstName = $_GET["fn"];
-$lastName = $_GET["ln"];
-$phone = $_GET["tel"];
-$active = $_GET["act"];
-$age = $_GET["age"];
-
+if(isset($_GET["q"])){
+    $q = $_GET["q"];
+}
 
 header('Content-Type: application/json; charset=utf-8');
 
-
+if(isset($_GET["id"])){
+    $interst_id = $_GET["id"];
+}
 if($q == "interest"){
     $results = $db->query('SELECT * FROM Interest WHERE id = ' . $interst_id); 
     while ($row = $results->fetchArray()) { 
         echo json_encode($row, JSON_UNESCAPED_UNICODE);
      }
  }
-
+ if(isset($_GET["id"])){
+    $user_id = $_GET["id"];
+}
 if ($q=="user"){
     $results = $db->query('SELECT * FROM Person WHERE id=' . $user_id);
     while ($row = $results->fetchArray()){
@@ -34,29 +31,21 @@ if ($q=="user"){
 
 if($q=="removeuser"){
     $results = $db->query('DELETE  FROM Person WHERE id=' . $user_id);
- // if($results){
-  //  echo json_encode('User removed!', JSON_UNESCAPED_UNICODE);
- // }
 }
 
-if($q=="removeinterest"){
-    
+if($q=="removeinterest"){  
     $results = $db->query('DELETE  FROM Interest WHERE id=' . $user_id);
-  //if($results){
-    //    echo json_encode('Interest removed!', JSON_UNESCAPED_UNICODE);
-   //    }
+}
+
+if(isset($_GET["desc"])){
+    $description = $_GET["desc"];
 }
 if($q=="addinterest"){
     $results = $db->query('INSERT INTO Interest VALUES(NULL,"'. $_GET["desc"]. '")');
-   // if($results){
-   //     echo json_encode('Interest added', JSON_UNESCAPED_UNICODE);
-   // }
 }
+
 if($q=="adduser"){
     $results = $db->query('INSERT INTO Person VALUES(NULL,"'. $_GET["fn"]. '","'. $_GET["ln"]. '","'. $_GET["tel"]. '","'. $_GET["act"]. '","'. $_GET["age"]. '")');
-   // if($results){
-    //    echo json_encode('User added', JSON_UNESCAPED_UNICODE);
-    //}
 }
 if($q=="searchinter"){
     $results = $db->query('SELECT * FROM Interest WHERE description LIKE "%'.$description.'%"');
@@ -64,23 +53,33 @@ if($q=="searchinter"){
         echo json_encode($row, JSON_UNESCAPED_UNICODE);
      }
 }
+
+if(isset($_GET["fn"])){
+    $firstName = $_GET["fn"];
+}
+if(isset($_GET["ln"])){
+    $lastName = $_GET["ln"];
+}
+if(isset($_GET["tel"])){
+    $phone = $_GET["tel"];
+}
+if(isset($_GET["act"])){
+    $active = $_GET["act"];
+}
+if(isset($_GET["age"])){
+    $age = $_GET["age"];
+}
 if($q=="searchuser"){
     $results = $db->query('SELECT * FROM Person WHERE firstName LIKE "%'.$firstName.'%"');
     while ($row = $results->fetchArray()) { 
-    //    echo json_encode($row, JSON_UNESCAPED_UNICODE);
+       echo json_encode($row, JSON_UNESCAPED_UNICODE);
      }
 }
 if($q=="editinter"){
     $results = $db->query('UPDATE Interest SET description = "'.$description.'" WHERE id ='.$interst_id.'');
- // if($results){
-      //  echo json_encode('Interest updated', JSON_UNESCAPED_UNICODE);
-  //}
 }
 if($q=="edituser"){
     $results = $db->query('UPDATE Person SET firstName = "'.$firstName.'", lastName = "'.$lastName.'", phone = "'.$phone.'", active = "'.$active.'", age = "'.$age.'" WHERE id ='.$user_id.'');
-  //if($results){
-       // echo json_encode('User updated', JSON_UNESCAPED_UNICODE);
- // }
 }
+
 echo json_encode($results);
-echo "done";
